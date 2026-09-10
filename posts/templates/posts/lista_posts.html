@@ -4,11 +4,13 @@
 
 {% block content %}
     <h2>Listado de posts</h2>
+    <p><a href="{% url "crear_post" %}">Crear nuevo post</a></p>
     <ul class="post-list">
         {% for post in posts %}
             <li>
                 <a href="{% url 'detalle_post' post.id %}">{{ post.titulo }}</a>
-                <span>por {{ post.autor }}</span>
+                <span>por {{ post.autor }}</span> |
+                <a href="{% url "eliminar_post" post.id %}">Eliminar</a>
             </li>
         {% empty %}
             <li>No hay posts para mostrar.</li>

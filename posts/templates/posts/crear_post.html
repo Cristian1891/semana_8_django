@@ -1,0 +1,26 @@
+{% extends "posts/base.html" %}
+
+{% block title %} Crear Post | Mi Blog{% endblock %}
+
+{% block content %}
+    <form action="{% url "crear_post" %}" method="post">
+        {% csrf_token %}
+        <label for="titulo">
+            Titulo
+        </label>
+        <input type="text" id="titulo" name="titulo" required maxlength="100">
+        <label for="autor">
+            Autor
+        </label>
+        <input type="text" id="autor" name="autor" required>
+        <label for="contenido">
+            Contenido
+        </label>
+        <textarea id="contenido" name="contenido" required></textarea>
+
+        <input type="submit" value="Crear Post">
+        {% comment %} <button></button> {% endcomment %}
+    </form>
+
+    <a href="{% url 'lista_posts' %}">Volver al listado</a>
+{% endblock %}
