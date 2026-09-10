@@ -1,0 +1,13 @@
+{% extends "posts/base.html" %}
+
+{% block title %} Elimninar Post | Mi Blog{% endblock %}
+
+{% block content %}
+    <form action="{% url "eliminar_post" posteo.id %}" method="post">
+        {% csrf_token %}
+        <p>¿Estás seguro de que quieres eliminar el posteo {{posteo.titulo}}?</p>
+        <input type="submit" value="Confirmar">
+    </form>
+
+    <a href="{% url 'lista_posts' %}">Volver al listado</a>
+{% endblock %}

@@ -5,7 +5,7 @@
 {% block content %}
     <form action="{% url "crear_post" %}" method="post">
         {% csrf_token %}
-        <label for="titulo">
+        {% comment %} <label for="titulo">
             Titulo
         </label>
         <input type="text" id="titulo" name="titulo" required maxlength="100">
@@ -16,7 +16,12 @@
         <label for="contenido">
             Contenido
         </label>
-        <textarea id="contenido" name="contenido" required></textarea>
+        <textarea id="contenido" name="contenido" required></textarea> {% endcomment %}
+
+        {% comment %} Comun {% endcomment %}
+        {{formulario}}
+        {% comment %} CBV {% endcomment %}
+        {{form}}
 
         <input type="submit" value="Crear Post">
         {% comment %} <button></button> {% endcomment %}

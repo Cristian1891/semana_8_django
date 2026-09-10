@@ -1,0 +1,16 @@
+{% extends "posts/base.html" %}
+
+{% block title %} Editar Post | Mi Blog{% endblock %}
+
+{% block content %}
+    <form action="{% url "editar_post" posteo.id%}" method="post">
+        {% csrf_token %}
+        {% comment %} Comun {% endcomment %}
+        {{formulario}}
+        {% comment %} CBV {% endcomment %}
+        {{form}}
+        <input type="submit" value="Editar Post">
+    </form>
+
+    <a href="{% url 'lista_posts' %}">Volver al listado</a>
+{% endblock %}
