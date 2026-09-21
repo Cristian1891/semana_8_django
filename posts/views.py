@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
 from posts.models import Posteo
-from posts.forms import CrearPosteo, EditarPosteo
-from django.views.generic.edit import DeleteView, UpdateView, CreateView
+# from posts.forms import CrearPosteo, EditarPosteo
+from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
 from django.urls import reverse_lazy
+from .forms import PosteoForm
+from .models import Posteo
+
 
 # Create your views here.
 def inicio(request):
@@ -80,29 +83,62 @@ def contacto(request):
     
 #     return render(request, "posts/editar_post.html", {"formulario": formulario, "post": posteo})
 
-class VistaCrearPosteo(CreateView):
-    model = Posteo
-    template_name = "posts/crear_post.html"
-    success_url = reverse_lazy('lista_posts')
-    # fields = "__all__"
-    form_class = CrearPosteo
+# class VistaCrearPosteo(CreateView):
+#     model = Posteo
+#     template_name = "posts/crear_post.html"
+#     success_url = reverse_lazy('lista_posts')
+#     # fields = "__all__"
+#     form_class = CrearPosteo
 
-class VistaEliminarPosteo(DeleteView):
-    model = Posteo
-    template_name = "posts/eliminar_post.html"
-    success_url = reverse_lazy('lista_posts')
+# class VistaEliminarPosteo(DeleteView):
+#     model = Posteo
+#     template_name = "posts/eliminar_post.html"
+#     success_url = reverse_lazy('lista_posts')
 
 class VistaDetallePosteo(DetailView):
     model = Posteo
     template_name = "posts/detalle_post.html"
+    context_object_name = "posteo"
+    slug_field = "slug"
+    slug_url_kwarg = "slug"
+
 
 class VistaListarPosteo(ListView):
     model = Posteo
     template_name = "posts/lista_posts.html"
     context_object_name = "posts"
 
-class VistaEditarPosteo(UpdateView):
+# class VistaEditarPosteo(UpdateView):
+#     model = Posteo
+#     template_name = "posts/editar_post.html"
+#     success_url = reverse_lazy('lista_posts')
+#     fields = "__all__"
+
+
+class VistaCrearPosteo(CreateView):
     model = Posteo
-    template_name = "posts/editar_post.html"
-    success_url = reverse_lazy('lista_posts')
-    fields = "__all__"
+    form_class = PosteoForm
+    template_name = "posts/crear_post.html"
+    success_url = reverse_lazy("lista_posts")
+
+
+# /posts/crear/
+
+# CreateView:
+# -crea PosteoForm() sin datos;
+# -lo coloca en el contexto con el nombre form;
+# -renderiza crear_post.html;
+# -devuelve el HTML.
+
+# {{form}}
+
+
+
+# CreateView:
+
+# construye PosteoForm(request.POST);
+# ejecuta is_valid();
+# clean_titulo() produce un ValidationError;
+# no llama a save();
+# vuelve a mostrar el mismo template;
+# conserva los datos enviados y muestra el error.

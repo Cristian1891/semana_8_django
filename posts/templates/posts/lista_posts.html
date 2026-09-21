@@ -8,13 +8,14 @@
     <ul class="post-list">
         {% for post in posts %}
             <li>
-                <a href="{% url 'detalle_post' post.id %}">{{ post.titulo }}</a>
-                <span>por {{ post.autor }}</span> |
-                <a href="{% url "editar_post" post.id %}">Editar</a> |
-                <a href="{% url "eliminar_post" post.id %}">Eliminar</a>
+                <a href="{% url 'detalle_post' post.slug %}">
+                    {{ post.titulo }}
+                </a>
+                <span>por {{ post.autor }}</span>
             </li>
         {% empty %}
             <li>No hay posts para mostrar.</li>
         {% endfor %}
+
     </ul>
 {% endblock %}

@@ -1,5 +1,5 @@
 from django import forms
-from posts.models import Posteo
+from .models import Posteo
 
 # v1
 # class CrearPosteo(forms.Form):
@@ -8,21 +8,22 @@ from posts.models import Posteo
 #     contenido = forms.CharField(widget=forms.Textarea)
 
 
+
 # v2
-class CrearPosteo(forms.ModelForm):
+# class CrearPosteo(forms.ModelForm):
     
-    class Meta:
-        model = Posteo
-        # fields = ['titulo', 'autor']
-        fields = "__all__"
+#     class Meta:
+#         model = Posteo
+#         # fields = ['titulo', 'autor']
+#         fields = "__all__"
 
 
-class EditarPosteo(forms.ModelForm):
+# class EditarPosteo(forms.ModelForm):
     
-    class Meta:
-        model = Posteo
-        # fields = ['titulo', 'autor']
-        fields = "__all__"
+#     class Meta:
+#         model = Posteo
+#         # fields = ['titulo', 'autor']
+#         fields = "__all__"
  
  
 # class FormularioPosteo(forms.ModelForm):
@@ -36,3 +37,50 @@ class EditarPosteo(forms.ModelForm):
 
 
 # class EditarPosteo(FormularioPosteo): ...
+
+
+class PosteoForm(forms.ModelForm):
+    class Meta:
+        model = Posteo
+        fields = ("titulo", "autor", "contenido")
+        widgets = {
+            "titulo": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Título del post",
+                }
+            ),
+            "autor": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Nombre del autor",
+                }
+            ),
+            "contenido": forms.Textarea(
+                attrs={
+                    "class": "form-control",
+                    "rows": 8,
+                    "placeholder": "Contenido del post",
+                }
+            ),
+        }
+        
+
+
+    def clean_titulo(self):
+        titulo = self.cleaned_data["titulo"].strip()
+        if len(titulo) < 5:
+            raise forms.ValidationError(
+                "El título debe tener al menos 5 caracteres.",
+                code="titulo_corto",
+            )
+        return titulo
+
+    def clean_contenido(self):
+        contenido = self.cleaned_data["contenido"].strip()
+        if len(contenido) < 20:
+            raise forms.ValidationError(
+                "El contenido debe tener al menos 20 caracteres.",
+                code="contenido_corto",
+            )
+        return contenido
