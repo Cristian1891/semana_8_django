@@ -42,7 +42,7 @@ from .models import Posteo
 class PosteoForm(forms.ModelForm):
     class Meta:
         model = Posteo
-        fields = ("titulo", "autor", "contenido")
+        fields = ("titulo", "autor", "contenido", "imagen")
         widgets = {
             "titulo": forms.TextInput(
                 attrs={
@@ -61,6 +61,12 @@ class PosteoForm(forms.ModelForm):
                     "class": "form-control",
                     "rows": 8,
                     "placeholder": "Contenido del post",
+                }
+            ),
+            "imagen": forms.ClearableFileInput(
+                attrs={
+                    "class": "form-control",
+                    "accept": "image/*",
                 }
             ),
         }

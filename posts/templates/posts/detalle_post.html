@@ -4,14 +4,29 @@
 
 {% block content %}
 <article class="card shadow-sm border-0">
+    {% if posteo.imagen %}
+        <img src="{{ posteo.imagen.url }}"
+             class="card-img-top"
+             alt="Imagen de {{ posteo.titulo }}">
+    {% endif %}
+
     <div class="card-body p-4">
         <h1>{{ posteo.titulo }}</h1>
         <p class="text-body-secondary">
             <strong>Autor</strong> {{ posteo.autor }}
         </p>
-        <p>{{ posteo.contenido|linebreaks }}</p>
-        <a class="btn btn-outline-secondary"
-           href="{% url 'lista_posts' %}">Volver al listado</a>
+        <div>{{ posteo.contenido|linebreaks }}</div>
+
+        <div class="d-flex gap-2">
+            <a class="btn btn-outline-primary"
+               href="{% url 'editar_post' posteo.slug %}">Editar</a>
+            <a class="btn btn-outline-danger"
+               href="{% url 'eliminar_post' posteo.slug %}">Eliminar</a>
+            <a class="btn btn-outline-secondary"
+               href="{% url 'lista_posts' %}">
+                Volver al listado
+            </a>
+        </div>
     </div>
 </article>
 {% endblock %}

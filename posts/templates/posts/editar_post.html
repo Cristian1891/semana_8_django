@@ -1,16 +1,26 @@
 {% extends "posts/base.html" %}
 
-{% block title %} Editar Post | Mi Blog{% endblock %}
+{% block title %}Editar post | Mi Blog{% endblock %}
 
 {% block content %}
-    <form action="{% url "editar_post" posteo.id%}" method="post">
-        {% csrf_token %}
-        {% comment %} Comun {% endcomment %}
-        {{formulario}}
-        {% comment %} CBV {% endcomment %}
-        {{form}}
-        <input type="submit" value="Editar Post">
-    </form>
+<section class="card shadow-sm border-0">
+    <div class="card-body p-4">
+        <h1 class="h2 mb-3">Editar {{ posteo.titulo }}</h1>
 
-    <a href="{% url 'lista_posts' %}">Volver al listado</a>
+        <form method="post"
+              enctype="multipart/form-data"
+              novalidate>
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button class="btn btn-primary" type="submit">
+                Guardar cambios
+            </button>
+            <a class="btn btn-outline-secondary"
+               href="{% url 'detalle_post' posteo.slug %}">
+                Cancelar
+            </a>
+        </form>
+    </div>
+</section>
 {% endblock %}

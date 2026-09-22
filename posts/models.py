@@ -15,7 +15,14 @@ class Posteo(models.Model):
     slug = models.SlugField(max_length=220, unique=True, blank=True, default="")
     autor = models.CharField(max_length=75)
     contenido = models.TextField()
+    imagen = models.ImageField(
+        upload_to="posts/%Y/%m/",
+        null=True,
+        blank=True,
+        help_text="Opcional. Elegí una imagen JPG, PNG o WebP.",
+    )
     fecha_creacion = models.DateField(auto_now_add=True)
+
 
     class Meta:
         ordering = ["-fecha_creacion"]

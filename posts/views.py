@@ -3,7 +3,7 @@ from posts.models import Posteo
 # from posts.forms import CrearPosteo, EditarPosteo
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
-from django.views.generic import DetailView
+from django.views.generic import DetailView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .forms import PosteoForm
 from .models import Posteo
@@ -90,10 +90,16 @@ def contacto(request):
 #     # fields = "__all__"
 #     form_class = CrearPosteo
 
-# class VistaEliminarPosteo(DeleteView):
-#     model = Posteo
-#     template_name = "posts/eliminar_post.html"
-#     success_url = reverse_lazy('lista_posts')
+class VistaEliminarPosteo(DeleteView):
+    model = Posteo
+    template_name = "posts/eliminar_post.html"
+    success_url = reverse_lazy('lista_posts')
+    context_object_name = "posteo"
+    slug_field = "slug"
+    slug_url_kwarg = "slug"
+    
+    
+    
 
 class VistaDetallePosteo(DetailView):
     model = Posteo
@@ -108,11 +114,17 @@ class VistaListarPosteo(ListView):
     template_name = "posts/lista_posts.html"
     context_object_name = "posts"
 
-# class VistaEditarPosteo(UpdateView):
-#     model = Posteo
-#     template_name = "posts/editar_post.html"
-#     success_url = reverse_lazy('lista_posts')
-#     fields = "__all__"
+class VistaEditarPosteo(UpdateView):
+    model = Posteo
+    form_class = PosteoForm
+    template_name = "posts/editar_post.html"
+    success_url = reverse_lazy('lista_posts')
+    context_object_name = "posteo"
+    slug_field = "slug"
+    slug_url_kwarg = "slug"
+    
+    
+
 
 
 class VistaCrearPosteo(CreateView):
