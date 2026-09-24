@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "posts",
+    "cuentas"
 ]
 
 MIDDLEWARE = [
@@ -103,7 +104,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-MX'
 
 TIME_ZONE = 'UTC'
 
@@ -118,6 +120,11 @@ USE_TZ = True
 STATIC_URL = 'static/'
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+# Modulo 11: activar con las rutas de cuentas.
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "inicio" # "perfil"
+LOGOUT_REDIRECT_URL = "inicio"
 
 
 

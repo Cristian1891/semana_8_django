@@ -1,5 +1,8 @@
 from django import forms
 from .models import Posteo
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+# from .models import Perfil
 
 # v1
 # class CrearPosteo(forms.Form):

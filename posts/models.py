@@ -51,6 +51,3 @@ class Posteo(models.Model):
 
     def get_absolute_url(self):
         return reverse("detalle_post", kwargs={"slug": self.slug})
-
-
-

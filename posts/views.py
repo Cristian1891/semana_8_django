@@ -7,6 +7,7 @@ from django.views.generic import DetailView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .forms import PosteoForm
 from .models import Posteo
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # Create your views here.
@@ -90,7 +91,7 @@ def contacto(request):
 #     # fields = "__all__"
 #     form_class = CrearPosteo
 
-class VistaEliminarPosteo(DeleteView):
+class VistaEliminarPosteo(LoginRequiredMixin, DeleteView):
     model = Posteo
     template_name = "posts/eliminar_post.html"
     success_url = reverse_lazy('lista_posts')
@@ -114,7 +115,7 @@ class VistaListarPosteo(ListView):
     template_name = "posts/lista_posts.html"
     context_object_name = "posts"
 
-class VistaEditarPosteo(UpdateView):
+class VistaEditarPosteo(LoginRequiredMixin, UpdateView):
     model = Posteo
     form_class = PosteoForm
     template_name = "posts/editar_post.html"

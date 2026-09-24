@@ -1,0 +1,25 @@
+{% extends "posts/base.html" %}
+
+{% block title %}Mi perfil | Mi Blog{% endblock %}
+
+{% block content %}
+<section class="card shadow-sm border-0">
+    <div class="card-body p-4">
+        <h1 class="h2 mb-3">Mi perfil</h1>
+        {% if perfil.imagen_perfil %}
+            <img src="{{ perfil.imagen_perfil.url }}"
+                 class="img-thumbnail mb-3"
+                 width="160"
+                 height="160"
+                 alt="Imagen de perfil de {{ user.username }}">
+        {% endif %}
+        <p><strong>Usuario:</strong> {{ user.username }}</p>
+        <p><strong>Nombre:</strong> {{ user.get_full_name|default:"Sin nombre" }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <div>{{ perfil.biografia|default:"Sin biografia"|linebreaks }}</div>
+        <a class="btn btn-primary" href="{% url 'editar_perfil' %}">
+            Editar perfil
+        </a>
+    </div>
+</section>
+{% endblock %}

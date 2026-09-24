@@ -4,7 +4,7 @@ from . import views
 urlpatterns = [
     path("", views.inicio, name="inicio"),
     path("contacto/", views.contacto, name="contacto"),
-    
+
     # sin vbc
     # path("posts/", views.lista_posts, name="lista_posts"),
     # path("posts/crear/", views.crear_posts, name="crear_post"),
